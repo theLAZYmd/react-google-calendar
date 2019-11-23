@@ -1,0 +1,63 @@
+div.key {
+	display: flex;
+	flex-direction: row;
+}
+
+div.key > div {
+	display: flex;
+	flex-direction: row;
+	padding: 0 6px;
+}
+
+span.status {
+	padding: 0 8px;
+	cursor: pointer;
+}
+
+.event {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px 0;
+}
+
+.eventHeader {
+	display: flex;
+	flex-direction: row;
+}
+
+.eventName {
+	margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+a.eventTitle {text-decoration: none}
+a.eventTitle:link {text-decoration: none}
+a.eventTitle:visited {text-decoration: none}
+a.eventTitle:hover {text-decoration: none}
+a.noEvent {
+	color: black
+}
+.table {
+	white-space: pre-wrap;
+	table-layout: fixed;
+	max-width: 100%;
+	min-width: 800px;
+}
+
+.table td > div {
+	word-wrap: break-word;
+	height: 100%;
+}
+
+.table th.firstColumn {
+	width: 100px;
+}
+
+td.cell:hover {
+	background-color: #ffebb9 !important;
+}
+
+td.today {
+	background-color: peachpuff !important;
+}
