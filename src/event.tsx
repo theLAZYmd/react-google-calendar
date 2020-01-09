@@ -1,5 +1,5 @@
 import he from 'he';
-import {GoogleEvent, GoogleLocation, StringDictionary} from './interfaces';
+import { GoogleEvent, GoogleLocation, StringDictionary } from './interfaces';
 
 const regexes = {
 	space: /\s+/g,
@@ -22,9 +22,9 @@ export default class Event {
 	rawDescription: string;
 	map: string;
 
-	private _location: string;
-	private _facebookEvent: string;
-	private _description: string;
+	private _location?: string;
+	private _facebookEvent?: string;
+	private _description?: string;
 
 	constructor(event: GoogleEvent, calendarName: string, color: string, {
 		locationReplacers,
@@ -51,7 +51,7 @@ export default class Event {
 	get location(): string {		
 		if (this._location) return this._location;
 		let location;
-		let l = this.rawLocation.split(',').shift();
+		let l = this.rawLocation.split(',').shift() as string;
 		if (this.locationReplacers[l]) location = this.locationReplacers[l];
 		else location = l;
 		return this._location = location;
@@ -61,7 +61,7 @@ export default class Event {
 	get facebookEvent(): string {
 		if (this._facebookEvent) return this._facebookEvent;
 		let facebookEvent = '';
-		if (regexes.facebook.test(this.rawDescription)) facebookEvent = this.rawDescription.match(regexes.facebook)[0];
+		if (regexes.facebook.test(this.rawDescription)) facebookEvent = (this.rawDescription.match(regexes.facebook) as [string])[0];
 		return this._facebookEvent = facebookEvent;
 	}
 

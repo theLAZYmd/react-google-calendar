@@ -9,6 +9,7 @@ React Google Calendar is a functional and easy way
 - Customisable: provides a whole range of options to affect how Calendar data is parsed
 - Light on dependencies: relies on axios, he, and react
 - Native strong typing - no need to install @types/ definition
+- Includes TypeScript support
 
 Install
 -------
