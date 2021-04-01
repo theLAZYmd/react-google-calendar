@@ -48,7 +48,7 @@ export default function Calendar(props: CalendarProps &
     updateHash(getEventDate(Date.now()));
   }, [props.noUpdateHash]);
 
-  const [colorStatuses, toggleColor] = useReducer((state, action: string | string[]) => {
+  const [colorStatuses, toggleColor] = useReducer((state: {[color: string]: boolean}, action: string | string[]) => {
     if (typeof action === 'string') {
       state[action] = !state[action];
       return Object.assign({}, state);
