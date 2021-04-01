@@ -1,18 +1,12 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var http = _interopDefault(require('http'));
-var https = _interopDefault(require('https'));
-var url = _interopDefault(require('url'));
-var stream = _interopDefault(require('stream'));
-var assert = _interopDefault(require('assert'));
-var tty = _interopDefault(require('tty'));
-var util = _interopDefault(require('util'));
-var os = _interopDefault(require('os'));
-var zlib = _interopDefault(require('zlib'));
+import http from 'http';
+import https from 'https';
+import url from 'url';
+import stream from 'stream';
+import assert from 'assert';
+import tty from 'tty';
+import util from 'util';
+import os from 'os';
+import zlib from 'zlib';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -6894,12 +6888,6 @@ function Calendar(props) {
         react.createElement(CalendarFrame, __assign({}, { events: events, colorStatuses: colorStatuses }, props, { maxEvents: 3, colorNames: 'events' in props ? props.calendars : colors }))));
 }
 
-exports.CalendarEvent = CalendarEvent;
-exports.CalendarKey = CalendarKey;
-exports.default = Calendar;
-exports.getDisplayTime = getDisplayTime;
-exports.getEventDate = getEventDate;
-exports.getHash = getHash;
-exports.isDateEqual = isDateEqual;
-exports.updateHash = updateHash;
-//# sourceMappingURL=index.js.map
+export default Calendar;
+export { CalendarEvent, CalendarKey, getDisplayTime, getEventDate, getHash, isDateEqual, updateHash };
+//# sourceMappingURL=index.es.js.map

@@ -19,10 +19,10 @@ export function CalendarKey(props: CalendarKeyProps) {
   const styles = useMemo(() => {
     let s = {} as {[key: string]: string};
     for (let [k, v] of Object.entries(props.classNames || {})) {
-      s[k] += k + ' ' + v;
+      s[k] = k + ' ' + v;
     }
     return s;
-  }, []);
+  }, [props.classNames]);
 
   const colorStatuses = props.colorStatuses || {};
 

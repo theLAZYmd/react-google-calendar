@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 
 import { CalendarEvent } from './Event';
-import { getDisplayTime, getEventDate } from './utils';
+import { getEventDate } from './utils';
 import { useMemo } from 'react';
+import Cell from './Cell';
 
 const defaultDayLabels = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const defaultWeeks = 4;
@@ -11,6 +12,9 @@ const defaultWeeks = 4;
 export interface CalendarFrameProps {
   events: {
     [timestamp: number]: CalendarEvent[]
+  }
+  colorNames?: {
+  [color: string]: string
   }
   colorStatuses?: {
     [color: string]: boolean
@@ -27,6 +31,7 @@ export interface CalendarFrameProps {
     event?: string
   }
   startIndex?: number | string
+  maxEvents?: number
 }
 
 export function CalendarFrame(props: CalendarFrameProps) {
@@ -35,21 +40,22 @@ export function CalendarFrame(props: CalendarFrameProps) {
   const startIndex = typeof props.startIndex === 'string' ?
     days.indexOf(props.startIndex) : 
     props.startIndex || 0;
+  const maxEvents = props.maxEvents || 5;
     
   const styles = useMemo(() => {
     let s = {} as {[key: string]: string};
     for (let [k, v] of Object.entries(props.classNames || {})) {
-      s[k] += k + ' ' + v;
+      s[k] = k + ' ' + v;
     }
     return s;
-  }, []);
+  }, [props.classNames]);
 
   const weeks = useMemo(() => {
     let w = [] as Date[];
     for (let i = 0; i < (props.weeks || defaultWeeks); i++) {
       let curr = new Date(props.start);
       curr.setDate(curr.getDate() + days.length * i);
-      weeks.push(curr);
+      w.push(curr);
     }
     return w;
   }, [props.start, props.weeks]);
@@ -79,49 +85,16 @@ export function CalendarFrame(props: CalendarFrameProps) {
               })}>
                 <div>
                   {props.events[timestamp] && !Object.values(props.events[timestamp]).every(e => !colorStatuses[e.color]) ?
-                    props.events[timestamp]
-                      .sort((a, b) => {
-                        if (a.start.getHours() !== b.start.getHours()) return a.start.getHours() - b.start.getHours();
-                        else return a.start.getMinutes() - b.start.getMinutes();
-                      })
-                      .map((event, i) => {
-                        return (
-                          <div className={styles.event} key={[timestamp, i].join('.')} style={colorStatuses[event.color] ? {} : {
-                            display: 'none'
-                          }}>
-                            <div className={styles.eventHeader}>
-                              <h4 className={styles.eventName}>
-                                <span className={styles.status} style={{
-                                  color: event.color
-                                }}>⬤</span>
-                                <span className='toolTip'>{/* TODO */}</span>
-                                {event.facebookEvent ?
-                                  <a className={styles.eventTitle} href={event.facebookEvent}>
-                                    {event.title}
-                                  </a> :
-                                  event.title
-                                }
-                              </h4>
-                            </div>
-                            {<div>
-                              <h5>
-                                {getDisplayTime(event.start)}
-                                {' '}
-                                {event.map ?
-                                  <a href={event.map} rel='noopener noreferrer' target='_blank'>
-                                    {event.location}
-                                  </a>
-                                  : event.location}
-                                {'\n'}
-                                {event.description || null}
-                              </h5>
-                            </div>}
-                          </div>
-                        );
-                      }) :
+                    <Cell
+                      key={[timestamp, i].join('.')}
+                      colorNames={props.colorNames as {[key: string]: string}}
+                      events={props.events[timestamp]}
+                      {...{ maxEvents, styles, timestamp, colorStatuses}}
+                    /> :
                     <div className={styles.dateNumber}>
                       {date.getDate()}
-                    </div>}
+                    </div>
+                  }
                 </div>
               </td>
             );
@@ -129,7 +102,7 @@ export function CalendarFrame(props: CalendarFrameProps) {
           }
           return <tr key={'week.' + i}>
             <th scope='row' className={styles.firstColumn}>
-              {'Week ' + i + '\n' + week.toDateString().slice(4, 10)}
+              {week.toDateString().slice(4, 10)}
             </th>
             {days}            
           </tr>;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { CalendarSettings } from './interfaces';
 
@@ -20,10 +20,11 @@ export * from './utils';
 export interface OfflineCalendarProps {
   events: { [timestamp: number]: CalendarEvent[] }
   calendars: {[color: string]: string} /* Map colours to names */
-  settings: undefined
+  settings?: undefined
 }
 export interface OnlineCalendarProps {
   settings: CalendarSettings
+  events?: undefined
   calendars: {[key: string]: string} /* Map IDs to colours */
 }
 export interface CalendarProps {
@@ -35,7 +36,7 @@ export interface CalendarProps {
   classNames?: {[key: string]: string}
   days?: string[]
   noUpdateHash?: boolean
-  customLinkComponent?: React.Component
+  customLinkComponent?: ((...args: any[]) => JSX.Element)
 }
 
 export default function Calendar(props: CalendarProps &
@@ -76,7 +77,8 @@ export default function Calendar(props: CalendarProps &
     setColorStatuses: toggleColor,
     start: props.start,
     finish: props.finish,
-    timeZone: props.timeZone
+    timeZone: props.timeZone,
+    events: props.events
   });
 
   return (
@@ -84,8 +86,8 @@ export default function Calendar(props: CalendarProps &
       [CalendarSettingsContext, props.settings || { locationReplacers: {} }],
       [LinkComponentContext, props.customLinkComponent || null]
     ]}>
-      <CalendarKey colorNames={'events' in props ? props.calendars : colors} colorStatuses={colorStatuses} updateColorStatuses={toggleColor} />
-      <CalendarFrame {...{ events, colorStatuses }} {...props} />
+      <CalendarKey colorNames={'events' in props ? props.calendars : colors} colorStatuses={colorStatuses} updateColorStatuses={toggleColor} classNames={props.classNames} />
+      <CalendarFrame {...{ events, colorStatuses }} {...props} maxEvents={3} colorNames={'events' in props ? props.calendars : colors} />
     </Contexts>
   );
 

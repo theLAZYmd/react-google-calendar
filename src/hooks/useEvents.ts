@@ -13,20 +13,20 @@ interface EventHookProps {
   start: Date
   finish?: Date
   timeZone?: string
+  events?: {
+    [timestamp: number]: CalendarEvent[]
+  }
 }
 
 export default function useEvents(props: EventHookProps) {
 
-  const [events, setEvents] = useState({} as {
-    [timestamp: number]: CalendarEvent[]
-  });
+  const [events, setEvents] = useState(props.events || {});
   const [colors, setColors] = useState({} as {[color: string]: string}); /* calendarName */
 
   const settings = useContext(CalendarSettingsContext);
 
   const handleId = useCallback(async (calendarId: string) => {
     let eventDict = events;
-    let c = colors;
     
     let res = await axios({
       baseURL: settings.baseURL || baseURL,
@@ -48,7 +48,6 @@ export default function useEvents(props: EventHookProps) {
     let eventArr = [] as CalendarEvent[];
     data.items.forEach((event) => {
       let color = props.calendars[calendarId];
-      if (!c[color]) c[color] = calendarName;
       eventArr.push(new CalendarEvent(event, calendarName, color, settings));
     });
     eventArr.forEach((event) => {
@@ -56,14 +55,36 @@ export default function useEvents(props: EventHookProps) {
       if (!eventDict[date]) eventDict[date] = [];
       eventDict[date].push(event);
     });
-    props.setColorStatuses(Object.keys(c));
-    setColors(c);
     setEvents(eventDict);
-  }, [events, colors, settings, setEvents, setColors, props]);
+  }, [events, colors, settings, setEvents, props]);
+
+  const parseColorsFromEvents = useCallback((eventDict: {[key: string]: CalendarEvent[]}) => {
+    let c = colors;
+    for (let eventArr of Object.values(eventDict)) {
+      for (let e of eventArr) {
+        if (!c[e.color]) c[e.color] = e.calendarName;
+      }
+    }
+    console.log(c);
+    setColors(c);
+    props.setColorStatuses(Object.keys(c));
+  }, [setColors, props.setColorStatuses]);
 
   useEffect(() => {
-    Object.keys(props.calendars).forEach(handleId);
+    Object.entries(props.calendars).forEach(([k, v]) => {
+      if (k === v) return;
+      handleId(k);
+    });
   }, [props.calendars]);
+
+  useEffect(() => {
+    if (props.events) setEvents(props.events);
+  }, [setEvents, props.events]);
+
+  useEffect(() => {
+    if (!Object.keys(events).length) return;
+    parseColorsFromEvents(events);
+  }, [events, parseColorsFromEvents]);
 
   return { colors, events };
 

@@ -6,19 +6,19 @@ import { CalendarSettings } from './interfaces';
 type ContextValue<T> = [Context<T>, T];
 
 export default function Contexts({ values, children }: {
-	values: ContextValue<any>[]
-	children?: ReactNode
+  values: ContextValue<any>[]
+  children?: ReactNode
 }) {
 
-	return values.reduce((acc, [context, value]) => {
-		return (
-			<context.Provider value={value}>
-				{acc}
-			</context.Provider>
-		);
-	}, children) as any as ReactElement;
-	
+  return values.reduce((acc, [context, value]) => {
+    return (
+      <context.Provider value={value}>
+        {acc}
+      </context.Provider>
+    );
+  }, children) as any as ReactElement;
+  
 }
 
-export const LinkComponentContext = createContext(null as React.Component | null);
+export const LinkComponentContext = createContext(null as ((...args: any[]) => JSX.Element) | null);
 export const CalendarSettingsContext = createContext({} as CalendarSettings);

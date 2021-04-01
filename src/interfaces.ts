@@ -1,7 +1,7 @@
 export interface CalendarSettings {
   baseURL?: string
-	APIkey?: string
-	mapsLink?: string,
+  APIkey?: string
+  mapsLink?: string,
   locationReplacers: {[key: string]: string}
 }
 
