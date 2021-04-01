@@ -1,6 +1,6 @@
 {
   "name": "reactjs-google-calendar",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "A functional calendar renderer for events from a google calendar",
   "main": "./lib/index.js",
   "module": "build/index.es.js",
@@ -30,7 +30,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
-    "he": "^1.2.0",
+    "he": "^1.2.0"
   },
   "peerDependencies": {
     "react": "^17.0.2",
