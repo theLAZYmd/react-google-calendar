@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { CalendarEvent } from './Event';
 import { getDisplayTime, getEventDate } from './utils';
 import { useMemo } from 'react';
-const defaultStyles = require('../css/frame.module.css');
+const defaultStyles = require('./css/frame.module.css');
 
 const defaultDayLabels = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const defaultWeeks = 4;
