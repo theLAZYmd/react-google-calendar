@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMemo } from 'react';
-const defaultStyles = require('./css/key.module.css');
+const defaultStyles = require('../css/key.module.css');
 
 export interface CalendarKeyProps {
   classNames?: {

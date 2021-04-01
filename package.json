@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "A functional calendar renderer for events from a google calendar",
   "main": "./lib/index.js",
-  "types": "./lib/index.d/ts",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "react-scripts start"
