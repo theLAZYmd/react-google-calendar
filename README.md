@@ -58,7 +58,7 @@ The settings config should be of the following format:
 {
 
 // Register for an API key
-	"APIkey": "",
+  "APIkey": "",
 
 /**
  * Calendar IDs should be an object of key-value pairs.
@@ -72,42 +72,42 @@ The settings config should be of the following format:
  * Make your calendar publically visible in Access Permissions
  * The value fields of this object should be html colours
  */
-	"calendarIDs": {
-		[calendarID: string]: [colour: string]
+  "calendarIDs": {
+    [calendarID: string]: [colour: string]
 
 // If you want your locations to be rendered as a link to a map. Leave blank for none. Use Google Maps (below) as default
-	},
-	"mapsLink": "https://www.google.com/maps/search/",
+  },
+  "mapsLink": "https://www.google.com/maps/search/",
 
 /**
  * The renderer takes the first line of a location
  * in the Google Calendar entry and renders it
  * Use this to 'adjust' any locations
  */
-	"locationReplacers": {
-		"Christ Church Cathedral": "Christ Church"
-	},
+  "locationReplacers": {
+    "Christ Church Cathedral": "Christ Church"
+  },
 
 // When should the calendar start date be? (a Sunday)
-	"start": "6 October 2019",
+  "start": "6 October 2019",
 
 // When should the calendar finish date be?
-	"finish": "8 December 2019",
+  "finish": "8 December 2019",
 
 // What should the calendar title be?
-	"title": "MT'19",
+  "title": "MT'19",
 
 // How should the days of the week be displayed on the top row?
 // (Must start with a Sunday)
-	"days": [
-		"SUN",
-		"MON",
-		"TUES",
-		"WED",
-		"THURS",
-		"FRI",
-		"SAT"
-	]
+  "days": [
+    "SUN",
+    "MON",
+    "TUES",
+    "WED",
+    "THURS",
+    "FRI",
+    "SAT"
+  ]
 }
 ```
 
