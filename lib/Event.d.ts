@@ -1,4 +1,4 @@
-import { GoogleEvent, GoogleLocation } from './interfaces';
+import { CalendarSettings, GoogleEvent, GoogleLocation } from './interfaces';
 export declare class CalendarEvent {
     link: string;
     title: string;
@@ -14,12 +14,8 @@ export declare class CalendarEvent {
     };
     rawDescription: string;
     map: string;
-    constructor(event: GoogleEvent, calendarName: string, color: string, { locationReplacers, mapsLink }: {
-        locationReplacers: {
-            [key: string]: string;
-        };
-        mapsLink: string;
-    });
+    constructor(event: GoogleEvent, calendarName: string, color: string, { locationReplacers, mapsLink }: Partial<CalendarSettings>);
+    static fromGeneric(e: Partial<CalendarEvent>, calendarName: string, color: string, { locationReplacers, mapsLink }: Partial<CalendarSettings>): CalendarEvent;
     get location(): string;
     get facebookEvent(): string;
     get description(): string;

@@ -1,7 +1,7 @@
 export interface CalendarSettings {
     baseURL?: string;
     APIkey?: string;
-    mapsLink: string;
+    mapsLink?: string;
     locationReplacers: {
         [key: string]: string;
     };
@@ -18,7 +18,7 @@ export interface GoogleEvent {
     end: GoogleDate;
     status: string;
     location: GoogleLocation;
-    description: string;
+    description?: string;
 }
 export interface GoogleCalendar {
     kind: string;
