@@ -1,6 +1,5 @@
 import React from 'react';
 import { useMemo } from 'react';
-const defaultStyles = require('./css/key.module.css');
 
 export interface CalendarKeyProps {
   classNames?: {
@@ -18,9 +17,9 @@ export interface CalendarKeyProps {
 export function CalendarKey(props: CalendarKeyProps) {
     
   const styles = useMemo(() => {
-    let s = Object.assign({}, defaultStyles);
+    let s = {} as {[key: string]: string};
     for (let [k, v] of Object.entries(props.classNames || {})) {
-      s[k] += ' ' + v;
+      s[k] += k + ' ' + v;
     }
     return s;
   }, []);

@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { CalendarEvent } from './Event';
 import { getDisplayTime, getEventDate } from './utils';
 import { useMemo } from 'react';
-const defaultStyles = require('./css/frame.module.css');
 
 const defaultDayLabels = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const defaultWeeks = 4;
@@ -38,9 +37,9 @@ export function CalendarFrame(props: CalendarFrameProps) {
     props.startIndex || 0;
     
   const styles = useMemo(() => {
-    let s = Object.assign({}, defaultStyles);
+    let s = {} as {[key: string]: string};
     for (let [k, v] of Object.entries(props.classNames || {})) {
-      s[k] += ' ' + v;
+      s[k] += k + ' ' + v;
     }
     return s;
   }, []);
