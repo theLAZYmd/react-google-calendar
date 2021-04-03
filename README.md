@@ -123,7 +123,8 @@ interface CalendarProps {
      * you to put in address incorrectly
      * ex: will say address rather than landmark
      * or: will get placename wrong
-     * You can use a string dictionary to replace those strings found in locations with your preferences
+     * You can use a string dictionary to replace those strings
+     * wherever they're found in the GoogleEvent locations with your preferences
      * ex: "locationReplacers": {
      *   Christ Church Cathedral": "Christ Church"
      * }
@@ -133,7 +134,8 @@ interface CalendarProps {
     },
 
     /**
-     * If the google API link is updated and for some reason this package is not updated, replace the default temporarily here
+     * If the google API link is updated and for some reason this package is not updated,
+     * replace the default temporarily here
      * @default 'https://clients6.google.com/calendar/v3/calendars/'
      */    
     baseURL?: string
@@ -269,6 +271,7 @@ interface OfflineProps {
 }
 
 type CalendarProps = (OfflineProps | OnlineProps) & GenericProps
+```
 
 ## List of classNames
 
