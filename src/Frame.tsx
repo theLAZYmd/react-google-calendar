@@ -30,16 +30,13 @@ export interface CalendarFrameProps {
     cell?: string
     event?: string
   }
-  startIndex?: number | string
   maxEvents?: number
 }
 
 export function CalendarFrame(props: CalendarFrameProps) {
 
   const days = props.dayLabels || defaultDayLabels;
-  const startIndex = typeof props.startIndex === 'string' ?
-    days.indexOf(props.startIndex) : 
-    props.startIndex || 0;
+  const startIndex = new Date(props.start).getDay();
   const maxEvents = props.maxEvents || 5;
     
   const styles = useMemo(() => {
