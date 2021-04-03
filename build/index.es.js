@@ -268,9 +268,7 @@ var defaultDayLabels = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 var defaultWeeks = 4;
 function CalendarFrame(props) {
     var days = props.dayLabels || defaultDayLabels;
-    var startIndex = typeof props.startIndex === 'string' ?
-        days.indexOf(props.startIndex) :
-        props.startIndex || 0;
+    var startIndex = new Date(props.start).getDay();
     var maxEvents = props.maxEvents || 5;
     var styles = useMemo(function () {
         var s = {};
@@ -4209,7 +4207,6 @@ function useEvents(props) {
                     c[e.color] = e.calendarName;
             }
         }
-        console.log(c);
         setColors(c);
         props.setColorStatuses(Object.keys(c));
     }, [setColors, props.setColorStatuses]);

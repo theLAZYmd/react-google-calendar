@@ -20,7 +20,6 @@ export interface CalendarFrameProps {
         cell?: string;
         event?: string;
     };
-    startIndex?: number | string;
     maxEvents?: number;
 }
 export declare function CalendarFrame(props: CalendarFrameProps): JSX.Element;

@@ -29,7 +29,6 @@ export interface CalendarProps {
     classNames?: {
         [key: string]: string;
     };
-    days?: string[];
     noUpdateHash?: boolean;
     customLinkComponent?: ((...args: any[]) => JSX.Element);
 }
