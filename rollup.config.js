@@ -30,8 +30,8 @@ export default {
       rollupCommonJSResolveHack: true,
       exclude: '**/__tests__/**',
       clean: true
-	}),
-	json(),
+    }),
+    json(),
     commonjs({
       include: ['node_modules/**'],
       namedExports: {

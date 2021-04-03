@@ -65,7 +65,6 @@ export default function useEvents(props: EventHookProps) {
         if (!c[e.color]) c[e.color] = e.calendarName;
       }
     }
-    console.log(c);
     setColors(c);
     props.setColorStatuses(Object.keys(c));
   }, [setColors, props.setColorStatuses]);
