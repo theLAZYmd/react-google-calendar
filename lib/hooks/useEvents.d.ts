@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { CalendarEvent } from '../Event';
 interface EventHookProps {
     calendars: {
@@ -10,6 +11,8 @@ interface EventHookProps {
     events?: {
         [timestamp: number]: CalendarEvent[];
     };
+    APIkey?: string;
+    onError?: (e: AxiosError) => void;
 }
 export default function useEvents(props: EventHookProps): {
     colors: {

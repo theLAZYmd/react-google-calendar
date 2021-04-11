@@ -4174,8 +4174,13 @@ function useEvents(props) {
                                 sanitizeHtml: true,
                                 timeMin: new Date(props.start).toISOString(),
                                 timeMax: new Date(props.finish || Date.now()).toISOString(),
-                                key: settings.APIkey
+                                key: props.APIkey
                             }
+                        }).catch(function (e) {
+                            if (props.onError)
+                                props.onError(e);
+                            else
+                                throw e;
                         })];
                 case 1:
                     res = _a.sent();
@@ -4231,12 +4236,13 @@ function useEvents(props) {
 }
 
 function Calendar(props) {
+    var _a;
     useEffect(function () {
         if (props.noUpdateHash)
             return;
         updateHash(getEventDate(Date.now()));
     }, [props.noUpdateHash]);
-    var _a = useReducer(function (state, action) {
+    var _b = useReducer(function (state, action) {
         if (typeof action === 'string') {
             state[action] = !state[action];
             return Object.assign({}, state);
@@ -4247,7 +4253,7 @@ function Calendar(props) {
                 return acc;
             }, {});
         }
-    }, {}), colorStatuses = _a[0], toggleColor = _a[1];
+    }, {}), colorStatuses = _b[0], toggleColor = _b[1];
     var calendars = useMemo(function () {
         if ('events' in props) {
             return Object.entries(props.calendars).reduce(function (acc, curr) {
@@ -4259,14 +4265,16 @@ function Calendar(props) {
             return props.calendars;
         }
     }, [props.calendars]);
-    var _b = useEvents({
+    var _c = useEvents({
         calendars: calendars,
         setColorStatuses: toggleColor,
         start: props.start,
         finish: props.finish,
         timeZone: props.timeZone,
-        events: props.events
-    }), colors = _b.colors, events = _b.events;
+        events: props.events,
+        APIkey: (_a = props.settings) === null || _a === void 0 ? void 0 : _a.APIkey,
+        onError: props.onError
+    }), colors = _c.colors, events = _c.events;
     return (React.createElement(Contexts, { values: [
             [CalendarSettingsContext, props.settings || { locationReplacers: {} }],
             [LinkComponentContext, props.customLinkComponent || null]

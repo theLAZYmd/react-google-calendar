@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { CalendarSettingsContext } from '../contexts';
 import { CalendarEvent } from '../Event';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -16,6 +16,8 @@ interface EventHookProps {
   events?: {
     [timestamp: number]: CalendarEvent[]
   }
+  APIkey?: string
+  onError?: (e: AxiosError) => void
 }
 
 export default function useEvents(props: EventHookProps) {
@@ -40,8 +42,11 @@ export default function useEvents(props: EventHookProps) {
         sanitizeHtml: true,
         timeMin: new Date(props.start).toISOString(), //'2019-10-27T00:00:00Z',
         timeMax: new Date(props.finish || Date.now()).toISOString(), //'2019-12-01T00:00:00Z',
-        key: settings.APIkey
+        key: props.APIkey
       }
+    }).catch((e) => {
+      if (props.onError) props.onError(e);
+      else throw e;
     }) as AxiosResponse<GoogleCalendar>;
     let { data } = res;
     let calendarName = data.summary;

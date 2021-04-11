@@ -1,6 +1,7 @@
 import { CalendarSettings } from './interfaces';
 import { CalendarFrameProps } from './Frame';
 import { CalendarEvent } from './Event';
+import { AxiosError } from 'axios';
 export * from './interfaces';
 export * from './Event';
 export * from './Key';
@@ -26,6 +27,7 @@ export interface CalendarProps {
     finish?: Date;
     title?: string;
     timeZone?: string;
+    onError?: (e: AxiosError) => void;
     classNames?: {
         [key: string]: string;
     };

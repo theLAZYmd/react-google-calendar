@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { getEventDate, updateHash } from './utils';
 import { CalendarEvent } from './Event';
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 
 export * from './interfaces';
 export * from './Event';
@@ -32,6 +33,7 @@ export interface CalendarProps {
   finish?: Date
   title?: string
   timeZone?: string
+  onError?: (e: AxiosError) => void
 
   classNames?: {[key: string]: string}
   noUpdateHash?: boolean
@@ -77,7 +79,9 @@ export default function Calendar(props: CalendarProps &
     start: props.start,
     finish: props.finish,
     timeZone: props.timeZone,
-    events: props.events
+    events: props.events,
+    APIkey: props.settings?.APIkey,
+    onError: props.onError
   });
 
   return (
