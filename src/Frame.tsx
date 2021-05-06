@@ -36,7 +36,7 @@ export interface CalendarFrameProps {
 export function CalendarFrame(props: CalendarFrameProps) {
 
   const days = props.dayLabels || defaultDayLabels;
-  const startIndex = new Date(props.start).getDay();
+  const startIndex = useMemo(() => (new Date(props.start).getDay() + 6) % 7, [props.start]);
   const maxEvents = props.maxEvents || 5;
     
   const styles = useMemo(() => {
@@ -51,11 +51,11 @@ export function CalendarFrame(props: CalendarFrameProps) {
     let w = [] as Date[];
     for (let i = 0; i < (props.weeks || defaultWeeks); i++) {
       let curr = new Date(props.start);
-      curr.setDate(curr.getDate() + days.length * i);
+      curr.setDate(curr.getDate() - startIndex + days.length * i);
       w.push(curr);
     }
     return w;
-  }, [props.start, props.weeks]);
+  }, [props.start, props.weeks, startIndex]);
   const colorStatuses = props.colorStatuses || {};
   
   return (
@@ -73,7 +73,7 @@ export function CalendarFrame(props: CalendarFrameProps) {
         {weeks.map((week, i) => {
           let days = [];
           for (let i = 0; i < 7; i++) {
-            let date = new Date(new Date(week).setDate(week.getDate() + i - startIndex));
+            let date = new Date(new Date(week).setDate(week.getDate() + i));
             let timestamp = getEventDate(date);
             let today = getEventDate(Date.now()) === timestamp;
             let day = (
